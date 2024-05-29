@@ -26,6 +26,7 @@ public class Details {
     @Setter
     private String name;
 
+    @Setter
     @Column(nullable = false, length = 100)
     private LocalDate birthDate;
 

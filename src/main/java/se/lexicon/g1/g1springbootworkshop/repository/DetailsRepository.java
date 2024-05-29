@@ -10,5 +10,5 @@ public interface DetailsRepository {
 Optional<Details> findByEmailIgnoreCase(String email);
 Optional<Details> findByNameContaining(String name);
 Optional<Details> findByNameIgnoreCase(String name);
-
+//Todo: add more methods as needed
 }
