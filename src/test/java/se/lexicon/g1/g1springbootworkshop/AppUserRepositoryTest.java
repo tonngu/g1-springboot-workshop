@@ -41,18 +41,58 @@ public class AppUserRepositoryTest {
     @Test
     @Transactional
     public void testFindByNameIgnoreCase() {
-       /* //1.Arrange
+       //1.Arrange
         Details testDetails = new Details("testemail@test.com", "Test Testsson", LocalDate.of(2000, 1, 1));
         AppUser testUser = new AppUser("Testusername", "Password", testDetails);
+        Details savedDetails = detailsRepository.save(testDetails);
         AppUser savedUser = appUserRepository.save(testUser);
 
         //2.Act
-        Optional<AppUser> foundUser = appUserRepository.findByUserDetails_NameIgnoreCase("testusername");
+        Optional<AppUser> foundUser = appUserRepository.findByUserDetails_NameIgnoreCase("test testsson");
 
         //3.Assert
-        //Assertions.assertNotNull(foundUser);
-        //Assertions.assertEquals(testUser.getUserDetails().getName(), foundUser.get().getUserDetails().getName());*/
+        Assertions.assertNotNull(foundUser);
+        Assertions.assertEquals(testUser.getUserDetails().getName(), foundUser.get().getUserDetails().getName());
     }
+
+    @Test
+    @Transactional
+    public void testFindByUserDetails_Id() {
+        //1.Arrange
+        Details testDetails = new Details("testemail@test.com", "Test Testsson", LocalDate.of(2000, 1, 1));
+        AppUser testUser = new AppUser("Testusername", "Password", testDetails);
+        Details savedDetails = detailsRepository.save(testDetails);
+        AppUser savedUser = appUserRepository.save(testUser);
+
+        //2.Act
+        Optional<AppUser> foundUser = appUserRepository.findByUserDetails_Id(savedDetails.getId());
+
+        //3.Assert
+        Assertions.assertNotNull(foundUser);
+        Assertions.assertEquals(savedDetails.getId(), foundUser.get().getUserDetails().getId());
+    }
+
+    @Test
+    @Transactional
+    public void testFindByRegDateBetween() {
+        //1.Arrange
+        Details testDetails = new Details("testemail@test.com", "Test Testsson", LocalDate.of(2000, 1, 1));
+        AppUser testUser = new AppUser("Testusername", "Password", testDetails);
+        Details savedDetails = detailsRepository.save(testDetails);
+        AppUser savedUser = appUserRepository.save(testUser);
+
+        //2.Act
+        Optional<AppUser> foundUserOptional = appUserRepository.findByRegDateBetween(LocalDate.of(2024,5,29),LocalDate.of(2024,6,1));
+
+        //3.Assert
+        Assertions.assertNotNull(foundUserOptional);
+        Assertions.assertTrue(foundUserOptional.get().getRegDate().isAfter(LocalDate.now().minusDays(1)));
+        Assertions.assertTrue(foundUserOptional.get().getRegDate().isBefore(LocalDate.now().plusDays(1)));
+    }
+
+
+
+
 
 
 }

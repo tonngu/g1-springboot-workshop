@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByUsername(String username);
 
-    List<AppUser> findByRegDateBetween(LocalDate start, LocalDate end);
+    Optional<AppUser> findByRegDateBetween(LocalDate start, LocalDate end);
 
     Optional<AppUser> findByUserDetails_Id(Long details_id);
 
