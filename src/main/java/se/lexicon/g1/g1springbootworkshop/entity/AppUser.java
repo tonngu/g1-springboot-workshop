@@ -29,10 +29,10 @@ public class AppUser {
     @Column
     private LocalDate regDate;
 
-    @Setter
+
     @OneToOne
     @JoinColumn(name = "details_id")
-    private Details userDetails;
+    @Setter private Details userDetails;
 
     public AppUser(String username, String password) {
         this.username = username;
