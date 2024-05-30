@@ -16,7 +16,7 @@ public class Details {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false, length = 100,unique = true)
     @Setter
@@ -30,4 +30,9 @@ public class Details {
     @Column(nullable = false, length = 100)
     private LocalDate birthDate;
 
+    public Details(String email, String name, LocalDate birthDate) {
+        this.email = email;
+        this.name = name;
+        this.birthDate = birthDate;
+    }
 }

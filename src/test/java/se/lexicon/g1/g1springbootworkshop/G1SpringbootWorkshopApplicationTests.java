@@ -8,6 +8,7 @@ class G1SpringbootWorkshopApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
