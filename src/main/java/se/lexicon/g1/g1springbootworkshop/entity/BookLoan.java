@@ -34,15 +34,15 @@ public class BookLoan {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "appUser_id")
-    private AppUser appUser;
+    private AppUser borrower;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id")
     private Book book;
 
-    public BookLoan(AppUser appUser, Book book){
-        if (this.returned = false) throw new IllegalArgumentException("BOOK NOT AVAILABLE REEEEE");
-        this.appUser = appUser;
+    public BookLoan(AppUser borrower, Book book){
+        if (!this.returned) throw new IllegalArgumentException("BOOK NOT AVAILABLE REEEEE");
+        this.borrower = borrower;
         this.returned = false;
         this.loanDate = LocalDate.now();
         this.dueDate = LocalDate.now().plusDays(book.getMaxLoanDays());

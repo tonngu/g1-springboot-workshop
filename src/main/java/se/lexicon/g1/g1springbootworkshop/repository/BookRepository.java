@@ -29,10 +29,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     //Find books loaned between specific dates
     @Query("select b from BookLoan bl join Book b where bl.loanDate >= :startDate AND bl.loanDate <= :endDate")
-    Optional<Book> findByDateBetween(@Param("startDate")LocalDate startDate, @Param("endDate")LocalDate endDate);
-
-
-
+    Optional<Book> findByDateBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 
 }

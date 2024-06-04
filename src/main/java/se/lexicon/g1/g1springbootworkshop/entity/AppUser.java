@@ -31,7 +31,7 @@ public class AppUser {
     private LocalDate regDate;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id")
     @Setter private Details userDetails;
 
