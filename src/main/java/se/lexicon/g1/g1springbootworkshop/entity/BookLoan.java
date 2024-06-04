@@ -27,8 +27,9 @@ public class BookLoan {
     @Setter
     private LocalDate dueDate;
 
-    @Setter
+
     @Column
+    @Setter
     private boolean returned;
 
     @ManyToOne(cascade = CascadeType.ALL)
