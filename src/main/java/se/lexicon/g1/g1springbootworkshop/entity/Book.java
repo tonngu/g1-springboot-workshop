@@ -26,12 +26,12 @@ public class Book {
 
     @Column(nullable = false)
     @Setter
-    private int MaxLoanDays;
+    private int maxLoanDays;
 
     public Book(String title, String isbn, int MaxLoanDays) {
         this.title = title;
         this.isbn = isbn;
-        this.MaxLoanDays = MaxLoanDays;
+        this.maxLoanDays = MaxLoanDays;
     }
 
 

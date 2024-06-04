@@ -6,8 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import se.lexicon.g1.g1springbootworkshop.entity.AppUser;
+import se.lexicon.g1.g1springbootworkshop.entity.Book;
+import se.lexicon.g1.g1springbootworkshop.entity.BookLoan;
 import se.lexicon.g1.g1springbootworkshop.entity.Details;
 import se.lexicon.g1.g1springbootworkshop.repository.AppUserRepository;
+import se.lexicon.g1.g1springbootworkshop.repository.BookLoanRepository;
+import se.lexicon.g1.g1springbootworkshop.repository.BookRepository;
 import se.lexicon.g1.g1springbootworkshop.repository.DetailsRepository;
 
 import java.time.LocalDate;
@@ -21,6 +25,12 @@ public class AppUserRepositoryTest {
 
     @Autowired
     DetailsRepository detailsRepository;
+
+    @Autowired
+    BookRepository bookRepository;
+
+    @Autowired
+    BookLoanRepository bookLoanRepository;
 
     @Test
     @Transactional
@@ -41,7 +51,7 @@ public class AppUserRepositoryTest {
     @Test
     @Transactional
     public void testFindByNameIgnoreCase() {
-       //1.Arrange
+        //1.Arrange
         Details testDetails = new Details("testemail@test.com", "Test Testsson", LocalDate.of(2000, 1, 1));
         AppUser testUser = new AppUser("Testusername", "Password", testDetails);
         Details savedDetails = detailsRepository.save(testDetails);
@@ -82,7 +92,7 @@ public class AppUserRepositoryTest {
         AppUser savedUser = appUserRepository.save(testUser);
 
         //2.Act
-        Optional<AppUser> foundUserOptional = appUserRepository.findByRegDateBetween(LocalDate.of(2024,5,29),LocalDate.of(2024,6,1));
+        Optional<AppUser> foundUserOptional = appUserRepository.findByRegDateBetween(LocalDate.of(2024, 5, 29), LocalDate.of(2024, 6, 1));
 
         //3.Assert
         Assertions.assertNotNull(foundUserOptional);
@@ -90,10 +100,25 @@ public class AppUserRepositoryTest {
         Assertions.assertTrue(foundUserOptional.get().getRegDate().isBefore(LocalDate.now().plusDays(1)));
     }
 
+    @Test
+    @Transactional
+    public void testFindByOnLoan() {
+        //1. Arrange
+        Details testDetails = new Details("testemail@test.com", "Test Testsson", LocalDate.of(2000, 1, 1));
+        AppUser testUser = new AppUser("Testusername", "Password", testDetails);
+        Book testBook = new Book("TestTitle","TestISBN",90);
+        BookLoan testBookLoan = new BookLoan(testUser, testBook);
+        AppUser savedUser = appUserRepository.save(testUser);
+        Book savedBook = bookRepository.save(testBook);
+        BookLoan savedBookLoan = bookLoanRepository.save(testBookLoan);
+
+        //2. Act
+        Optional<Book> bookOptional = bookRepository.findByOnLoan();
+
+        //3. Assert
+        Assertions.assertNotNull(bookOptional);
 
 
-
-
-
+    }
 }
 

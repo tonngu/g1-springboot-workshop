@@ -41,12 +41,10 @@ public class BookLoan {
     private Book book;
 
     public BookLoan(AppUser borrower, Book book){
-        if (!this.returned) throw new IllegalArgumentException("BOOK NOT AVAILABLE REEEEE");
         this.borrower = borrower;
-        this.returned = false;
         this.loanDate = LocalDate.now();
         this.dueDate = LocalDate.now().plusDays(book.getMaxLoanDays());
-
+        this.book = book;
     }
 
 
