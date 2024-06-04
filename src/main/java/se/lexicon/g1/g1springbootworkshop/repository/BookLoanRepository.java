@@ -9,22 +9,23 @@ import org.springframework.stereotype.Repository;
 import se.lexicon.g1.g1springbootworkshop.entity.BookLoan;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface BookLoanRepository extends JpaRepository<BookLoan, Long> {
-    Optional<BookLoan> findByBorrower_Id(Long appUserId);
+    List<BookLoan> findByBorrower_Id(Long appUserId);
 
-    Optional<BookLoan> findByBook_Id(Long bookId);
+    List<BookLoan> findByBook_Id(Long bookId);
 
-    Optional<BookLoan> findByReturnedFalse();
+    List<BookLoan> findByReturnedFalse();
 
 
     @Transactional
     @Query("select bl from BookLoan bl where bl.returned = false AND bl.dueDate < NOW()")
-    Optional<BookLoan> findOverdueBookLoan();
+    List<BookLoan> findOverdueBookLoan();
 
-    Optional<BookLoan> findByLoanDateBetween(LocalDate startDate, LocalDate endDate);
+    List<BookLoan> findByLoanDateBetween(LocalDate startDate, LocalDate endDate);
 
     @Modifying
     @Transactional

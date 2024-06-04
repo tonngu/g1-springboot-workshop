@@ -10,14 +10,14 @@ import java.util.Optional;
 
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
-    Optional<AppUser> findByUsername(String username);
+    List<AppUser> findByUsername(String username);
 
-    Optional<AppUser> findByRegDateBetween(LocalDate start, LocalDate end);
+    List<AppUser> findByRegDateBetween(LocalDate start, LocalDate end);
 
-    Optional<AppUser> findByUserDetails_Id(Long details_id);
+   List<AppUser> findByUserDetails_Id(Long details_id);
 
-    Optional<AppUser> findByUserDetails_EmailIgnoreCase(String email);
+    List<AppUser> findByUserDetails_EmailIgnoreCase(String email);
 
     //Todo add more methods as needed
-    Optional<AppUser> findByUserDetails_NameIgnoreCase(String name);
+    List<AppUser> findByUserDetails_NameIgnoreCase(String name);
 }

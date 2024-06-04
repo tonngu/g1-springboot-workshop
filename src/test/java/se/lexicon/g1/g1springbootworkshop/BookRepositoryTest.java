@@ -59,27 +59,26 @@ public class BookRepositoryTest {
     public void testFindByOnLoan() {
 
         //2. Act
-        Optional<Book> bookOptional = bookRepository.findByOnLoan();
+        List<Book> foundBooks = bookRepository.findByOnLoan();
 
         //3. Assert
-        Assertions.assertNotNull(bookOptional);
-        Assertions.assertTrue(bookOptional.isPresent());
-        Assertions.assertEquals("TestTitle",bookOptional.get().getTitle());
+        Assertions.assertNotNull(foundBooks);
+        Assertions.assertFalse(foundBooks.isEmpty(), "Expected to find at least one book");
+        Assertions.assertTrue(foundBooks.stream().anyMatch(book ->
+                book.getTitle().equals("TestTitle")), "Expected to find the book with title 'TestTitle'");
     }
 
     @Test
     @Transactional
     public void testFindByOverdue() {
-//1. Arrange
-
-
         //2. Act
-        Optional<Book> bookOptional = bookRepository.findByOverdue();
+        List<Book> foundBooks = bookRepository.findByOverdue();
 
         //3. Assert
-        Assertions.assertNotNull(bookOptional);
-        Assertions.assertTrue(bookOptional.isPresent());
-        Assertions.assertEquals("OverdueTitle",bookOptional.get().getTitle());
+        Assertions.assertNotNull(foundBooks);
+        Assertions.assertFalse(foundBooks.isEmpty(), "Expected to find at least one book");
+        Assertions.assertTrue(foundBooks.stream().anyMatch(book ->
+                book.getTitle().equals("OverdueTitle")), "Expected to find the book with title 'OverdueTitle'");
     }
 
     @Test
@@ -87,11 +86,13 @@ public class BookRepositoryTest {
     public void testFindByDateBetween() {
 
         //2. Act
-        Optional<Book> bookOptional = bookRepository.findByDateBetween(LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
+        List<Book> foundBooks = bookRepository.findByDateBetween(LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
 
         //3. Assert
-        Assertions.assertNotNull(bookOptional);
-        Assertions.assertTrue(bookOptional.isPresent());
+        Assertions.assertNotNull(foundBooks);
+        Assertions.assertFalse(foundBooks.isEmpty(), "Expected to find at least one book");
+        Assertions.assertTrue(foundBooks.stream().anyMatch(book ->
+                book.getTitle().equals("OverdueTitle")), "Expected to find the book with title 'OverdueTitle'");
 //Optional only expects 0 or 1 results, need to rewrite methods into List
     }
 
