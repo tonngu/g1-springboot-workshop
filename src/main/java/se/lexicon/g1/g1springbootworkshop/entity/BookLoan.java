@@ -31,11 +31,22 @@ public class BookLoan {
     @Column
     private boolean returned;
 
-    @OneToMany(mappedBy = "bookLoan")
-    private List<AppUser> appUsers;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "appUser_id")
+    private AppUser appUser;
 
-    @OneToMany(mappedBy = "bookLoan")
-    private List<Book> books;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_id")
+    private Book book;
+
+    public BookLoan(AppUser appUser, Book book){
+        if (this.returned = false) throw new IllegalArgumentException("BOOK NOT AVAILABLE REEEEE");
+        this.appUser = appUser;
+        this.returned = false;
+        this.loanDate = LocalDate.now();
+        this.dueDate = LocalDate.now().plusDays(book.getMaxLoanDays());
+
+    }
 
 
 }

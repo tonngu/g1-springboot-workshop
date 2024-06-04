@@ -28,10 +28,6 @@ public class Book {
     @Setter
     private int MaxLoanDays;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "BookLoan_id")
-    private BookLoan bookLoan;
-
     public Book(String title, String isbn, int MaxLoanDays) {
         this.title = title;
         this.isbn = isbn;

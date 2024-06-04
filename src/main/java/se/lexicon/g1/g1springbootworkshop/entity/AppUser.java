@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -33,10 +34,6 @@ public class AppUser {
     @OneToOne
     @JoinColumn(name = "details_id")
     @Setter private Details userDetails;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "BookLoan_id")
-    private BookLoan bookLoan;
 
 
     public AppUser(String username, String password) {
