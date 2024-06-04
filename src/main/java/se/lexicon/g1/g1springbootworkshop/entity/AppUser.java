@@ -34,6 +34,11 @@ public class AppUser {
     @JoinColumn(name = "details_id")
     @Setter private Details userDetails;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "BookLoan_id")
+    private BookLoan bookLoan;
+
+
     public AppUser(String username, String password) {
         this.username = username;
         this.password = password;
