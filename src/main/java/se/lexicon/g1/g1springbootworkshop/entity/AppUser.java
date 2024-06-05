@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -29,10 +30,14 @@ public class AppUser {
     @Column
     private LocalDate regDate;
 
+    @OneToMany(mappedBy = "borrower")
+    private List<BookLoan> bookLoans;
 
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id")
     @Setter private Details userDetails;
+
 
     public AppUser(String username, String password) {
         this.username = username;
@@ -45,6 +50,15 @@ public class AppUser {
         this(username, password);
         this.regDate = LocalDate.now();
         this.userDetails = userDetails;
+    }
+
+    public void addBookLoan(BookLoan bookLoan){
+        if (!bookLoan.getBook().isAvailable()) {
+            throw new IllegalStateException("Cannot lend a book that is not available.");
+        }
+        bookLoans.add(bookLoan);
+        bookLoan.setBorrower(this);
+        bookLoan.getBook().setAvailable(false);
     }
 
 
