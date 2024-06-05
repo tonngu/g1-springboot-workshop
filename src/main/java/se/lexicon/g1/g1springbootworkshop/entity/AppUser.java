@@ -30,6 +30,9 @@ public class AppUser {
     @Column
     private LocalDate regDate;
 
+    @OneToMany(mappedBy = "borrower")
+    private List<BookLoan> bookLoans;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id")
@@ -47,6 +50,15 @@ public class AppUser {
         this(username, password);
         this.regDate = LocalDate.now();
         this.userDetails = userDetails;
+    }
+
+    public void addBookLoan(BookLoan bookLoan){
+        if (!bookLoan.getBook().isAvailable()) {
+            throw new IllegalStateException("Cannot lend a book that is not available.");
+        }
+        bookLoans.add(bookLoan);
+        bookLoan.setBorrower(this);
+        bookLoan.getBook().setAvailable(false);
     }
 
 

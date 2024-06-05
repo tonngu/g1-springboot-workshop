@@ -34,6 +34,7 @@ public class BookLoan {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "appUser_id")
+    @Setter
     private AppUser borrower;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -41,11 +42,27 @@ public class BookLoan {
     private Book book;
 
     public BookLoan(AppUser borrower, Book book){
+        if (!book.isAvailable()) {
+            throw new IllegalStateException("Cannot create a book loan for a book that is not available.");
+        }
         this.borrower = borrower;
         this.loanDate = LocalDate.now();
         this.dueDate = LocalDate.now().plusDays(book.getMaxLoanDays());
         this.book = book;
+        book.setAvailable(false);
     }
+
+    public BookLoan(Book book){
+        if (!book.isAvailable()) {
+            throw new IllegalStateException("Cannot create a book loan for a book that is not available.");
+        }
+        this.loanDate = LocalDate.now();
+        this.dueDate = LocalDate.now().plusDays(book.getMaxLoanDays());
+        this.book = book;
+        book.setAvailable(false);
+    }
+
+
 
 
 }

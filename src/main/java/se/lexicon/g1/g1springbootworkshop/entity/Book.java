@@ -31,6 +31,10 @@ public class Book {
     @Setter
     private int maxLoanDays;
 
+    @Column
+    @Setter
+    private boolean available = true;
+
     @ManyToMany(mappedBy = "writtenBooks")
     private Set<Author> authors;
 
@@ -38,6 +42,13 @@ public class Book {
         this.title = title;
         this.isbn = isbn;
         this.maxLoanDays = MaxLoanDays;
+    }
+
+    public Book(String title, String isbn, int MaxLoanDays, Set<Author> authors) {
+        this.title = title;
+        this.isbn = isbn;
+        this.maxLoanDays = MaxLoanDays;
+        this.authors = authors;
     }
 
     public void addAuthor(Author author){

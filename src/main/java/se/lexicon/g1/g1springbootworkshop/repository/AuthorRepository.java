@@ -26,4 +26,5 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     @Query("Update Author a Set a.firstName = :firstName, a.lastName = :lastName Where a.id = :id")
     void updateNameById(@Param("firstName")String firstName, @Param("lastName") String lastName, @Param("id") Long id);
 
+
 }
