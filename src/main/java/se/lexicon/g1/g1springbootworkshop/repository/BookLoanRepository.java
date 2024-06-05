@@ -21,7 +21,7 @@ public interface BookLoanRepository extends JpaRepository<BookLoan, Long> {
     List<BookLoan> findByReturnedFalse();
 
 
-    @Transactional
+
     @Query("select bl from BookLoan bl where bl.returned = false AND bl.dueDate < NOW()")
     List<BookLoan> findOverdueBookLoan();
 

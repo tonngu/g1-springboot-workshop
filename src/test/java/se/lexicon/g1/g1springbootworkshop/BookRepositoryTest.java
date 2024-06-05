@@ -41,8 +41,8 @@ public class BookRepositoryTest {
         Details testDetails = new Details("testemail@test.com", "Test Testsson", LocalDate.of(2000, 1, 1));
         AppUser testUser = new AppUser("Testusername", "Password", testDetails);
 
-        Book testBook = new Book("TestTitle","TestISBN",90);
-        Book overdueBook = new Book("OverdueTitle","OverdueISBN",90);
+        Book testBook = new Book("TestTitle", "TestISBN", 90);
+        Book overdueBook = new Book("OverdueTitle", "OverdueISBN", 90);
 
         BookLoan testBookLoan = new BookLoan(testUser, testBook);
         bookLoanRepository.save(testBookLoan);
@@ -95,7 +95,6 @@ public class BookRepositoryTest {
                 book.getTitle().equals("OverdueTitle")), "Expected to find the book with title 'OverdueTitle'");
 //Optional only expects 0 or 1 results, need to rewrite methods into List
     }
-
 
 
 }

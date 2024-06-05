@@ -25,19 +25,17 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     //Find books that are currently on loan
 
-    @Transactional
     @Query("select b from BookLoan bl join Book b on bl.book.id = b.id where bl.returned = false")
     List<Book> findByOnLoan();
 
     //Find books that are overdue
 
-    @Transactional
+
     @Query("select b from BookLoan bl join Book b on bl.book.id = b.id where bl.returned = false AND bl.dueDate < NOW()")
     List<Book> findByOverdue();
 
     //Find books loaned between specific dates
 
-    @Transactional
     @Query("select b from BookLoan bl join Book b on bl.book.id = b.id where bl.loanDate >= :startDate AND bl.loanDate <= :endDate")
     List<Book> findByDateBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
